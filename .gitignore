@@ -19,6 +19,8 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pytest_cache/
+telescope_client/.egg-info/
 
 # Django
 *.log

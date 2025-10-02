@@ -16,19 +16,19 @@ A comprehensive Python client for Telescope error monitoring with OpenTelemetry 
 
 ```bash
 # Basic installation
-pip install telescope-client
+pip install telescope-python
 
 # With Django support
-pip install telescope-client[django]
+pip install telescope-python[django]
 
 # With Flask support  
-pip install telescope-client[flask]
+pip install telescope-python[flask]
 
 # With FastAPI support
-pip install telescope-client[fastapi]
+pip install telescope-python[fastapi]
 
 # With all integrations
-pip install telescope-client[all]
+pip install telescope-python[all]
 ```
 
 ## Quick Start
