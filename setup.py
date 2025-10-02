@@ -15,7 +15,7 @@ setup(
     description="Python client for Telescope error monitoring with OpenTelemetry integration",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ultronlabs/telescope-python-client",
+    url="https://github.com/us-telescope/telescope",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
