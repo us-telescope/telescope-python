@@ -74,7 +74,7 @@ poetry publish -r testpypi
 pip install --index-url https://test.pypi.org/simple/ telescope-python
 
 # Test the package
-python -c "from telescope_client import TelescopeClient; print('Import successful!')"
+python -c "from telescope import TelescopeClient; print('Import successful!')"
 ```
 
 ### Step 5: Publish to PyPI
@@ -132,7 +132,7 @@ pip install telescope-python[all]
 
 ### Usage
 ```python
-from telescope_client import TelescopeClient
+from telescope import TelescopeClient
 
 client = TelescopeClient(
     dsn="https://your-telescope-server.com",

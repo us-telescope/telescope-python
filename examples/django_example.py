@@ -4,7 +4,7 @@ Django Example with Telescope and OpenTelemetry Integration
 
 # settings.py
 import os
-from telescope_client import TelescopeClient, setup_django_integration
+from telescope import TelescopeClient, setup_django_integration
 
 # Telescope Configuration
 TELESCOPE_CLIENT = TelescopeClient(
@@ -30,7 +30,7 @@ INSTALLED_APPS = [
 # views.py
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from telescope_client import capture_errors, trace_function, set_user_context, set_tags
+from telescope import capture_errors, trace_function, set_user_context, set_tags
 from opentelemetry import trace
 import json
 
@@ -143,7 +143,7 @@ def charge_payment(amount, currency):
 
 # models.py
 from django.db import models
-from telescope_client import performance_monitor
+from telescope import performance_monitor
 
 
 class PaymentModel(models.Model):
@@ -198,7 +198,7 @@ MIDDLEWARE = [
 
 # management/commands/test_telescope.py
 from django.core.management.base import BaseCommand
-from telescope_client import set_tags, capture_errors
+from telescope import set_tags, capture_errors
 import time
 
 

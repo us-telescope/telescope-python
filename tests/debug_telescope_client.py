@@ -10,7 +10,7 @@ import os
 # Add the telescope-python-client to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "telescope-python-client"))
 
-from telescope_client import TelescopeClient
+from telescope import TelescopeClient
 
 
 def debug_telescope_client():

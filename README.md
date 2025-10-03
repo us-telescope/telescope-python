@@ -36,7 +36,7 @@ pip install telescope-python[all]
 ### Basic Setup
 
 ```python
-from telescope_client import TelescopeClient
+from telescope import TelescopeClient
 
 # Initialize client
 client = TelescopeClient(
@@ -61,7 +61,7 @@ client.capture_message("Payment processed successfully", level="info")
 
 ```python
 # settings.py
-from telescope_client import TelescopeClient, setup_django_integration
+from telescope import TelescopeClient, setup_django_integration
 
 TELESCOPE_CLIENT = TelescopeClient(
     dsn="https://your-telescope-server.com",
@@ -78,7 +78,7 @@ setup_django_integration(TELESCOPE_CLIENT)
 
 ```python
 from flask import Flask
-from telescope_client import TelescopeClient, setup_flask_integration
+from telescope import TelescopeClient, setup_flask_integration
 
 app = Flask(__name__)
 
@@ -97,7 +97,7 @@ init_telescope(app)
 
 ```python
 from fastapi import FastAPI
-from telescope_client import TelescopeClient, setup_fastapi_integration
+from telescope import TelescopeClient, setup_fastapi_integration
 
 app = FastAPI()
 
@@ -117,7 +117,7 @@ init_telescope(app)
 ### Decorators
 
 ```python
-from telescope_client import capture_errors, trace_function, performance_monitor
+from telescope import capture_errors, trace_function, performance_monitor
 
 # Automatic error capture
 @capture_errors(tags={"component": "payment"})
@@ -139,7 +139,7 @@ def expensive_operation():
 ### Context Management
 
 ```python
-from telescope_client import set_user_context, set_tags, with_context
+from telescope import set_user_context, set_tags, with_context
 
 # Set user context
 set_user_context(

@@ -12,7 +12,7 @@ import traceback
 # Add the telescope-python-client to the path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "telescope-python-client"))
 
-from telescope_client import TelescopeClient, set_user_context
+from telescope import TelescopeClient, set_user_context
 from telescope_client.context import set_client
 from opentelemetry import trace
 

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "telescope-python"
-version = "1.0.0"
+version = "1.0.5"
 description = "Python client for Telescope error monitoring"
 authors = ["Telescope Team <hello@ultron.studio>"]
 license = "MIT"
@@ -25,7 +25,7 @@ classifiers = [
     "Topic :: System :: Monitoring",
     "Topic :: System :: Logging",
 ]
-packages = [{include = "telescope_client"}]
+packages = [{include = "telescope"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -76,7 +76,7 @@ mypy = "^1.0.0"
 ruff = "^0.1.0"
 
 [tool.poetry.scripts]
-telescope-test = "telescope_client.cli:test_connection"
+telescope-test = "telescope.cli:test_connection"
 
 [build-system]
 requires = ["poetry-core"]

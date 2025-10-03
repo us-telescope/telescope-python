@@ -9,13 +9,13 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="telescope-python",
-    version="1.0.0",
+    version="1.0.5",
     author="Ultron Labs",
     author_email="hello@ultron.studio",
     description="Python client for Telescope error monitoring with OpenTelemetry integration",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/us-telescope/telescope",
+    url="https://github.com/us-telescope/telescope-python",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -75,7 +75,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "telescope-test=telescope_client.cli:test_connection",
+            "telescope-test=telescope.cli:test_connection",
         ],
     },
 )

@@ -56,8 +56,8 @@ run_tests() {
 # Function to format code
 format_code() {
     echo "🎨 Formatting code..."
-    poetry run black telescope_client/ --check --diff || {
-        echo "❌ Code formatting issues found. Run: poetry run black telescope_client/"
+    poetry run black telescope/ --check --diff || {
+        echo "❌ Code formatting issues found. Run: poetry run black telescope/"
         return 1
     }
     echo "✅ Code is properly formatted"
@@ -66,8 +66,8 @@ format_code() {
 # Function to lint code
 lint_code() {
     echo "🔍 Linting code..."
-    poetry run ruff check telescope_client/ || {
-        echo "❌ Linting issues found. Run: poetry run ruff check telescope_client/ --fix"
+    poetry run ruff check telescope/ || {
+        echo "❌ Linting issues found. Run: poetry run ruff check telescope/ --fix"
         return 1
     }
     echo "✅ No linting issues found"
