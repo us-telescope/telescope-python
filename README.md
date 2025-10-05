@@ -6,10 +6,12 @@ A comprehensive Python client for Telescope error monitoring with OpenTelemetry 
 
 🔹 **Error Tracking**: Automatic exception capture and reporting  
 🔹 **OpenTelemetry Integration**: Full tracing and metrics support  
-🔹 **Framework Support**: Django, Flask, FastAPI, Celery integrations  
+🔹 **Comprehensive Integrations**: 15+ framework and library integrations  
 🔹 **Environment Awareness**: Production, staging, development separation  
 🔹 **Performance Monitoring**: Slow query and function execution tracking  
 🔹 **Context Enrichment**: Automatic user, request, and custom context  
+🔹 **Auto-Discovery**: Automatic integration detection and setup  
+🔹 **Sentry-like API**: Familiar patterns for Sentry users  
 🔹 **Retry Logic**: Built-in retry mechanisms with telemetry  
 
 ## Installation
@@ -30,6 +32,38 @@ pip install telescope-python[fastapi]
 # With all integrations
 pip install telescope-python[all]
 ```
+
+## 🚀 **Comprehensive Integrations**
+
+Telescope supports **15+ major Python frameworks and libraries**:
+
+### **Web Frameworks**
+- **Django** - Full Django integration with automatic error capture
+- **Flask** - Complete Flask support with request context
+- **FastAPI** - Modern FastAPI integration with async support
+- **Starlette** - ASGI framework integration
+- **Quart** - Async Flask-compatible framework
+- **Sanic** - High-performance async framework
+- **Tornado** - Scalable web framework
+
+### **Async Frameworks**
+- **AioHTTP** - Async HTTP client/server framework
+
+### **Database Integrations**
+- **SQLAlchemy** - Database ORM with query tracing
+- **Redis** - In-memory database with operation tracking
+
+### **Task Queue Integrations**
+- **Celery** - Distributed task queue with error tracking
+
+### **AI/ML Integrations**
+- **OpenAI** - AI API integration with request tracing
+
+### **HTTP Client Integrations**
+- **Requests** - HTTP library with error capture
+
+### **Logging Integrations**
+- **Python Logging** - Automatic log-to-error conversion
 
 ## Quick Start
 
@@ -114,6 +148,136 @@ client = TelescopeClient(
 
 # Setup FastAPI integration
 FastAPIIntegration().setup(client)
+```
+
+### **Starlette Integration**
+```python
+from telescope.integrations.starlette import StarletteIntegration
+
+# Setup Starlette integration
+StarletteIntegration().setup(client)
+```
+
+### **Quart Integration**
+```python
+from telescope.integrations.quart import QuartIntegration
+
+# Setup Quart integration
+QuartIntegration().setup(client)
+```
+
+### **Sanic Integration**
+```python
+from telescope.integrations.sanic import SanicIntegration
+
+# Setup Sanic integration
+SanicIntegration().setup(client)
+```
+
+### **Tornado Integration**
+```python
+from telescope.integrations.tornado import TornadoIntegration
+
+# Setup Tornado integration
+TornadoIntegration().setup(client)
+```
+
+### **AioHTTP Integration**
+```python
+from telescope.integrations.aiohttp import AioHttpIntegration
+
+# Setup AioHTTP integration
+AioHttpIntegration().setup(client)
+```
+
+### **SQLAlchemy Integration**
+```python
+from telescope.integrations.sqlalchemy import SQLAlchemyIntegration
+
+# Setup SQLAlchemy integration
+SQLAlchemyIntegration().setup(client)(engine)
+```
+
+### **Redis Integration**
+```python
+from telescope.integrations.redis import RedisIntegration
+
+# Setup Redis integration
+RedisIntegration().setup(client)(redis_client)
+```
+
+### **Celery Integration**
+```python
+from telescope.integrations.celery import CeleryIntegration
+
+# Setup Celery integration
+CeleryIntegration().setup(client)(celery_app)
+```
+
+### **OpenAI Integration**
+```python
+from telescope.integrations.openai import OpenAIIntegration
+
+# Setup OpenAI integration
+OpenAIIntegration().setup(client)(openai_client)
+```
+
+### **Requests Integration**
+```python
+from telescope.integrations.requests import RequestsIntegration
+
+# Setup Requests integration
+RequestsIntegration().setup(client)()
+```
+
+### **Logging Integration**
+```python
+from telescope.integrations.logging import LoggingIntegration
+
+# Setup Logging integration
+LoggingIntegration().setup(client)
+```
+
+## 🔍 **Auto-Discovery System**
+
+### **Automatic Integration Setup**
+```python
+from telescope import setup_integrations
+from telescope.integrations import *
+
+# Setup all available integrations automatically
+integrations = [
+    DjangoIntegration(),
+    FlaskIntegration(),
+    FastAPIIntegration(),
+    SQLAlchemyIntegration(),
+    RedisIntegration(),
+    CeleryIntegration(),
+    OpenAIIntegration(),
+    RequestsIntegration(),
+    LoggingIntegration(),
+]
+
+enabled_integrations = setup_integrations(
+    integrations=integrations,
+    with_defaults=True,
+    with_auto_enabling_integrations=True,
+)
+```
+
+### **Integration Registry**
+```python
+from telescope.integrations.registry import get_available_integrations, get_integration_info
+
+# Get all available integrations
+available = get_available_integrations()
+print(available)
+# ['django', 'flask', 'fastapi', 'starlette', 'quart', 'sanic', 'tornado', 'aiohttp', 'sqlalchemy', 'redis', 'celery', 'openai', 'requests', 'logging']
+
+# Get integration info
+info = get_integration_info("django")
+print(info)
+# {'identifier': 'django', 'min_version': (1, 8), 'auto_enabling': True}
 ```
 
 
