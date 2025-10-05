@@ -4,8 +4,6 @@ Starlette integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry.instrumentation.starlette import StarletteInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -31,6 +29,7 @@ class StarletteIntegration:
             client: TelescopeClient instance
         """
         try:
+            from opentelemetry.instrumentation.starlette import StarletteInstrumentor
             from starlette.applications import Starlette
             from starlette.middleware.base import BaseHTTPMiddleware
             from starlette.requests import Request

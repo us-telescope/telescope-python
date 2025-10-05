@@ -3,8 +3,8 @@ Decorators for Telescope client
 """
 
 import functools
-from typing import Optional, Dict, Any, Callable
-from opentelemetry import trace
+from typing import Any, Callable, Dict, Optional
+
 from .context import get_client
 
 
@@ -81,6 +81,8 @@ def trace_function(
     def decorator(func: Callable):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
+            from opentelemetry import trace
+
             tracer = trace.get_tracer(__name__)
             span_name = name or f"{func.__module__}.{func.__name__}"
 
@@ -160,6 +162,8 @@ def performance_monitor(
         def wrapper(*args, **kwargs):
             import time
 
+            from opentelemetry import trace
+
             client = get_client()
             tracer = trace.get_tracer(__name__)
 
@@ -211,10 +215,12 @@ def performance_monitor(
                     return result
 
                 except Exception as e:
+                    from opentelemetry.trace import Status, StatusCode
+
                     execution_time = (time.time() - start_time) * 1000
                     span.set_attribute("performance.duration_ms", execution_time)
                     span.record_exception(e)
-                    span.set_status(trace.Status(trace.StatusCode.ERROR, str(e)))
+                    span.set_status(Status(StatusCode.ERROR, str(e)))
                     raise
 
         return wrapper
@@ -247,6 +253,8 @@ def retry_with_telemetry(
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
             import time
+
+            from opentelemetry import trace
 
             client = get_client()
             tracer = trace.get_tracer(__name__)
@@ -308,10 +316,10 @@ def retry_with_telemetry(
                             current_delay *= backoff
                         else:
                             # Final failure
+                            from opentelemetry.trace import Status, StatusCode
+
                             span.set_attribute("retry.failed", True)
-                            span.set_status(
-                                trace.Status(trace.StatusCode.ERROR, str(e))
-                            )
+                            span.set_status(Status(StatusCode.ERROR, str(e)))
 
                             if client:
                                 client.capture_exception(
@@ -331,10 +339,10 @@ def retry_with_telemetry(
                                     },
                                 )
 
-                            raise last_exception
+                            raise last_exception from last_exception
 
                 # This should never be reached
-                raise last_exception
+                raise last_exception from last_exception
 
         return wrapper
 

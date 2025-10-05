@@ -4,9 +4,6 @@ Celery integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry import trace
-from opentelemetry.instrumentation.celery import CeleryInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -34,6 +31,8 @@ class CeleryIntegration:
         try:
             from celery import Celery
             from celery.signals import task_failure, task_postrun, task_prerun
+            from opentelemetry import trace
+            from opentelemetry.instrumentation.celery import CeleryInstrumentor
 
             def init_celery(celery_app: Celery):
                 """Initialize Celery app with Telescope."""

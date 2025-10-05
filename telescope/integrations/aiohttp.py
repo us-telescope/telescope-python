@@ -4,9 +4,6 @@ AioHTTP integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry.instrumentation.aiohttp_client import AioHttpClientInstrumentor
-from opentelemetry.instrumentation.aiohttp_server import AioHttpServerInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -34,6 +31,12 @@ class AioHttpIntegration:
         try:
             from aiohttp import web
             from aiohttp.web_middlewares import middleware
+            from opentelemetry.instrumentation.aiohttp_client import (
+                AioHttpClientInstrumentor,
+            )
+            from opentelemetry.instrumentation.aiohttp_server import (
+                AioHttpServerInstrumentor,
+            )
 
             @middleware
             async def telescope_middleware(request, handler):

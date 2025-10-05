@@ -5,14 +5,7 @@ Telescope Client with OpenTelemetry Integration
 import traceback
 import uuid
 from datetime import datetime
-from typing import Dict, Any, Optional, List
-import requests
-from opentelemetry import trace, baggage
-from opentelemetry.trace import Status, StatusCode
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from typing import Any, Dict, List, Optional
 
 
 class TelescopeClient:
@@ -50,6 +43,11 @@ class TelescopeClient:
             sample_rate: Error sampling rate (0.0 to 1.0)
             otlp_endpoint: OpenTelemetry collector endpoint
         """
+        # Import required modules
+        import requests
+        from opentelemetry import trace
+        from opentelemetry.instrumentation.requests import RequestsInstrumentor
+
         self.dsn = dsn.rstrip("/")
         self.project_id = project_id
         self.environment = environment
@@ -76,6 +74,13 @@ class TelescopeClient:
 
     def _setup_tracing(self, otlp_endpoint: Optional[str]):
         """Setup OpenTelemetry tracing."""
+        from opentelemetry import trace
+        from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
+            OTLPSpanExporter,
+        )
+        from opentelemetry.sdk.trace import TracerProvider
+        from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
         trace.set_tracer_provider(TracerProvider())
 
         if otlp_endpoint:
@@ -110,6 +115,9 @@ class TelescopeClient:
         event_id = str(uuid.uuid4())
 
         # Get current span and trace context
+        from opentelemetry import trace
+        from opentelemetry.trace import Status, StatusCode
+
         current_span = trace.get_current_span()
         trace_id = None
         span_id = None
@@ -149,6 +157,8 @@ class TelescopeClient:
         }
 
         # Add OpenTelemetry baggage
+        from opentelemetry import baggage
+
         baggage_items = baggage.get_all()
         if baggage_items:
             event_data["contexts"]["baggage"] = dict(baggage_items)
@@ -184,6 +194,8 @@ class TelescopeClient:
         event_id = str(uuid.uuid4())
 
         # Get trace context
+        from opentelemetry import trace
+
         current_span = trace.get_current_span()
         trace_id = None
         span_id = None
@@ -217,7 +229,7 @@ class TelescopeClient:
         self._send_event(event_data)
         return event_id
 
-    def start_transaction(self, name: str, op: str = "http.server") -> trace.Span:
+    def start_transaction(self, name: str, op: str = "http.server"):
         """
         Start a new transaction (root span).
 
@@ -228,6 +240,7 @@ class TelescopeClient:
         Returns:
             OpenTelemetry span
         """
+
         span = self.tracer.start_span(
             name,
             attributes={
@@ -268,8 +281,8 @@ class TelescopeClient:
 
     def _get_runtime_context(self) -> Dict[str, Any]:
         """Get runtime context information."""
-        import sys
         import platform
+        import sys
 
         return {
             "name": "python",
@@ -281,6 +294,8 @@ class TelescopeClient:
     def _send_event(self, event_data: Dict[str, Any]):
         """Send event to Telescope server."""
         try:
+            from opentelemetry.trace import Status, StatusCode
+
             with self.tracer.start_span("telescope.send_event") as span:
                 span.set_attributes(
                     {
@@ -310,6 +325,8 @@ class TelescopeClient:
     def flush(self, timeout: float = 2.0):
         """Flush any pending events."""
         if self.enable_tracing:
+            from opentelemetry import trace
+
             # Force flush spans
             trace.get_tracer_provider().force_flush(timeout_millis=int(timeout * 1000))
 

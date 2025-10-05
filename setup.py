@@ -9,7 +9,7 @@ with open("README.md", encoding="utf-8") as fh:
 
 setup(
     name="telescope-python",
-    version="1.2.0",
+    version="1.2.2",
     author="Ultron Labs",
     author_email="hello@ultron.studio",
     description="Python client for Telescope error monitoring with OpenTelemetry integration",

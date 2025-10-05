@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "telescope-python"
-version = "1.2.0"
+version = "1.2.2"
 description = "Python client for Telescope error monitoring"
 authors = ["Telescope Team <hello@ultron.studio>"]
 license = "MIT"

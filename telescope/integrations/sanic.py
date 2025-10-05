@@ -4,8 +4,6 @@ Sanic integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry.instrumentation.sanic import SanicInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -31,6 +29,7 @@ class SanicIntegration:
             client: TelescopeClient instance
         """
         try:
+            from opentelemetry.instrumentation.sanic import SanicInstrumentor
             from sanic import Request, Sanic
             from sanic.response import text
 

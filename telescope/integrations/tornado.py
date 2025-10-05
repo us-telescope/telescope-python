@@ -4,8 +4,6 @@ Tornado integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry.instrumentation.tornado import TornadoInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -31,6 +29,7 @@ class TornadoIntegration:
             client: TelescopeClient instance
         """
         try:
+            from opentelemetry.instrumentation.tornado import TornadoInstrumentor
             from tornado.web import Application, RequestHandler
 
             class TelescopeRequestHandler(RequestHandler):

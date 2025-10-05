@@ -4,8 +4,6 @@ SQLAlchemy integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -31,6 +29,7 @@ class SQLAlchemyIntegration:
             client: TelescopeClient instance
         """
         try:
+            from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
             from sqlalchemy import event
             from sqlalchemy.engine import Engine
 

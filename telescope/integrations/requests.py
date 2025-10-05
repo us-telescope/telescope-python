@@ -4,9 +4,6 @@ Requests integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry import trace
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -32,6 +29,8 @@ class RequestsIntegration:
             client: TelescopeClient instance
         """
         try:
+            from opentelemetry import trace
+            from opentelemetry.instrumentation.requests import RequestsInstrumentor
             from requests import Session
 
             def init_requests():

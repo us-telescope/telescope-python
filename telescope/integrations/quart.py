@@ -4,8 +4,6 @@ Quart integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry.instrumentation.quart import QuartInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -31,6 +29,7 @@ class QuartIntegration:
             client: TelescopeClient instance
         """
         try:
+            from opentelemetry.instrumentation.quart import QuartInstrumentor
             from quart import Quart, g, request
 
             def init_app(app: Quart):

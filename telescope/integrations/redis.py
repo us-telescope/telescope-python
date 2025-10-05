@@ -4,9 +4,6 @@ Redis integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry import trace
-from opentelemetry.instrumentation.redis import RedisInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -32,6 +29,8 @@ class RedisIntegration:
             client: TelescopeClient instance
         """
         try:
+            from opentelemetry import trace
+            from opentelemetry.instrumentation.redis import RedisInstrumentor
             from redis import Redis
 
             def init_redis(redis_client: Redis):

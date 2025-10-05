@@ -4,8 +4,6 @@ Logging integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry.instrumentation.logging import LoggingInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -33,6 +31,8 @@ class LoggingIntegration:
         try:
             import logging
             from logging import LogRecord
+
+            from opentelemetry.instrumentation.logging import LoggingInstrumentor
 
             # Instrument logging
             LoggingInstrumentor().instrument()

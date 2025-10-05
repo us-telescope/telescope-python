@@ -4,9 +4,6 @@ OpenAI integration for Telescope client.
 
 from typing import TYPE_CHECKING, Any
 
-from opentelemetry import trace
-from opentelemetry.instrumentation.openai import OpenAIInstrumentor
-
 if TYPE_CHECKING:
     from ..client import TelescopeClient
 
@@ -33,6 +30,8 @@ class OpenAIIntegration:
         """
         try:
             from openai import OpenAI
+            from opentelemetry import trace
+            from opentelemetry.instrumentation.openai import OpenAIInstrumentor
 
             def init_openai(openai_client: OpenAI):
                 """Initialize OpenAI client with Telescope."""
