@@ -1,6 +1,6 @@
 # Telescope Python Client
 
-A comprehensive Python client for Telescope error monitoring with OpenTelemetry integration.
+A comprehensive Python client for Telescope error monitoring with OpenTelemetry integrations
 
 ## Features
 
@@ -61,43 +61,47 @@ client.capture_message("Payment processed successfully", level="info")
 
 ```python
 # settings.py
-from telescope import TelescopeClient, setup_django_integration
+from telescope import TelescopeClient
+from telescope.integrations.django import DjangoIntegration
 
 TELESCOPE_CLIENT = TelescopeClient(
     dsn="https://your-telescope-server.com",
     project_id="TS-123456", 
     environment="production",
     api_key="your-api-key",
+    enable_tracing=True,
 )
 
-# Setup automatic Django integration
-setup_django_integration(TELESCOPE_CLIENT)
+# Setup Django integration
+DjangoIntegration().setup(TELESCOPE_CLIENT)
 ```
 
 ### Flask Integration
 
 ```python
 from flask import Flask
-from telescope import TelescopeClient, setup_flask_integration
+from telescope import TelescopeClient
+from telescope.integrations.flask import FlaskIntegration
 
 app = Flask(__name__)
 
 client = TelescopeClient(
     dsn="https://your-telescope-server.com",
     project_id="TS-123456",
-    environment="production", 
+    environment="production",
+    enable_tracing=True,
 )
 
 # Setup Flask integration
-init_telescope = setup_flask_integration(client)
-init_telescope(app)
+FlaskIntegration().setup(client)
 ```
 
 ### FastAPI Integration
 
 ```python
 from fastapi import FastAPI
-from telescope import TelescopeClient, setup_fastapi_integration
+from telescope import TelescopeClient
+from telescope.integrations.fastapi import FastAPIIntegration
 
 app = FastAPI()
 
@@ -105,11 +109,21 @@ client = TelescopeClient(
     dsn="https://your-telescope-server.com",
     project_id="TS-123456",
     environment="production",
+    enable_tracing=True,
 )
 
 # Setup FastAPI integration
-init_telescope = setup_fastapi_integration(client)
-init_telescope(app)
+FastAPIIntegration().setup(client)
+```
+
+
+# New way (preferred)
+from telescope.integrations.django import DjangoIntegration
+from telescope.integrations.flask import FlaskIntegration
+from telescope.integrations.fastapi import FastAPIIntegration
+DjangoIntegration().setup(client)
+FlaskIntegration().setup(client)
+FastAPIIntegration().setup(client)
 ```
 
 ## Advanced Usage
@@ -290,6 +304,27 @@ client.capture_exception(
     fingerprint=["payment", "stripe", error.code]
 )
 ```
+
+## Migration Guide
+
+### From Old to New Structure
+
+```python
+# OLD (still works)
+from telescope import setup_django_integration
+setup_django_integration(client)
+
+# NEW (recommended)
+from telescope.integrations.django import DjangoIntegration
+DjangoIntegration().setup(client)
+```
+
+### Benefits of New Structure
+
+- ✅ **Sentry compatibility**: Familiar patterns for Sentry users
+- ✅ **Better organization**: Clean, logical import structure
+- ✅ **Extensibility**: Easy to add new integrations
+- ✅ **Professional**: Industry-standard patterns
 
 ## Testing
 

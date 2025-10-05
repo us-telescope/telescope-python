@@ -14,15 +14,21 @@ Features:
 """
 
 from .client import TelescopeClient
-from .integrations import setup_django_integration, setup_flask_integration
+from .context import clear_context, set_tags, set_user_context
 from .decorators import capture_errors, trace_function
-from .context import set_user_context, set_tags, clear_context
+from .integrations.django import DjangoIntegration, setup_django_integration
+from .integrations.fastapi import FastAPIIntegration, setup_fastapi_integration
+from .integrations.flask import FlaskIntegration, setup_flask_integration
 
 __version__ = "1.0.0"
 __all__ = [
     "TelescopeClient",
     "setup_django_integration",
     "setup_flask_integration",
+    "setup_fastapi_integration",
+    "DjangoIntegration",
+    "FlaskIntegration",
+    "FastAPIIntegration",
     "capture_errors",
     "trace_function",
     "set_user_context",
